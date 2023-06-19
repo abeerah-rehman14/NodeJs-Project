@@ -1,0 +1,11 @@
+{
+  "name": "node-training1",
+  "version": "1.0.0",
+  "description": "My Node.js project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Abeerah Rehman",
+  "license": "MIT"
+}
