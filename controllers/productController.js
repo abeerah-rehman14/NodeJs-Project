@@ -1,8 +1,8 @@
-const asyncHandler = require('express-async-handler'); 
-const Product = require("../models/productModel") 
-const Category = require("../models/categoryModel") 
+const asyncHandler = require('express-async-handler')  
+const Product = require('../models/productModel') 
+const Category = require('../models/categoryModel') 
 
-const mongoose = require('mongoose');
+const mongoose = require('mongoose') 
 
 
 
@@ -12,88 +12,88 @@ const getProducts = asyncHandler (async (req,res)=> {
     if(!products)
     {
         res.status(400)
-        throw new Error("Products not found");
+        throw new Error('Products not found') 
     }
     res.status(200).json(products)
 })
 
 // GET /api/products/id
 const getProduct = asyncHandler( async (req, res) =>{
-    const isValidObjectId = mongoose.Types.ObjectId.isValid(req.params.id);
+    const isValidObjectId = mongoose.Types.ObjectId.isValid(req.params.id) 
     
 
     if (!isValidObjectId) {
         res.status(400)
-        throw new Error("Invalid ID format");
+        throw new Error('Invalid ID format') 
     }
     else{
         const product = await Product.findById(req.params.id)
         if(!product)
         {
             res.status(404)
-            throw new Error("Product is not found");
+            throw new Error('Product is not found') 
         }
         res.status(200).json(product)
     }
-});
+}) 
 
 //private for admin access
 
 // POST /api/products 
 const addProduct = asyncHandler(async (req, res) =>{
-    const product = new Product(req.body);
+    const product = new Product(req.body) 
     if(!product.title || !product.quantity || !product.category || !product.price)
     {
         res.status(400)
-        throw new Error("Title, quantity and category are required");
+        throw new Error('Title, quantity and category are required') 
     }
 
-    const isValidObjectId = mongoose.Types.ObjectId.isValid(product.category);
+    const isValidObjectId = mongoose.Types.ObjectId.isValid(product.category) 
 
     if (!isValidObjectId) {
         res.status(400)
-        throw new Error("Invalid Category ID format");
+        throw new Error('Invalid Category ID format') 
     }
     else{
         const category = await Category.findById(product.category)
         if(!category)
         {
             res.status(404)
-            throw new Error("Category is not found");
+            throw new Error('Category is not found') 
         }
         try {
-            const newProduct = await Product.create(product);
+            const newProduct = await Product.create(product) 
             res.status(201).json(newProduct)
         }
         catch (error) {
-            console.error('Error creating product:', error.message);
+            console.error('Error creating product:', error.message) 
             res.status(500)
-            throw new Error("Error creating product");
+            throw new Error('Error creating product') 
         }
          
         
     }    
-});
+}) 
 
 
 
 // PUT /api/products/id
 const updateProduct = asyncHandler( async (req, res) =>{
-    const isValidObjectId = mongoose.Types.ObjectId.isValid(req.params.id);
+    const isValidObjectId = mongoose.Types.ObjectId.isValid(req.params.id) 
     if (!isValidObjectId) {
         res.status(400)
-        throw new Error("Invalid ID format");
+        throw new Error('Invalid ID format') 
     }
     else{
         const product = await Product.findById(req.params.id)
         if(!product)
         {
             res.status(404)
-            throw new Error("Product is not found");
+            throw new Error('Product is not found') 
         }
         else
         {
-            const updateProduct = await Product.findByIdAndUpdate(req.params.id,req.body, {new: true});
+            const updateProduct = await Product.findByIdAndUpdate(req.params.id,req.body, {new: true}) 
             res.status(200).json(updateProduct)
         }
     }
@@ -102,21 +102,21 @@ const updateProduct = asyncHandler( async (req, res) =>{
 
 // DELETE /api/products/id
 const deleteProduct = asyncHandler( async (req, res) =>{
-    const isValidObjectId = mongoose.Types.ObjectId.isValid(req.params.id);
+    const isValidObjectId = mongoose.Types.ObjectId.isValid(req.params.id) 
     if (!isValidObjectId) {
         res.status(400)
-        throw new Error("Invalid ID format");
+        throw new Error('Invalid ID format') 
     }
     else{
         const product = await Product.findById(req.params.id)
         if(!product)
         {
             res.status(404)
-            throw new Error("Product is not found");
+            throw new Error('Product is not found') 
         }
         else
         {
-            await Product.findByIdAndDelete(req.params.id);
+            await Product.findByIdAndDelete(req.params.id) 
             res.status(200).json({ message: 'Product is deleted successfully' })
         }
     }
@@ -136,7 +136,7 @@ const getProductsByCategory = asyncHandler (async (req,res)=> {
     if(!products)
     {
         res.status(400)
-        throw new Error("Products not found");
+        throw new Error('Products not found') 
     }
     res.status(200).json(products)
 })

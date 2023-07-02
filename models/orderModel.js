@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 
 const orderSchema = mongoose.Schema({
@@ -25,10 +25,10 @@ const orderSchema = mongoose.Schema({
         required: true
 
     }
-});
+})
 
 orderSchema.virtual('id').get(function() {
-    return this._id.toHexString();
+    return this._id.toHexString()
 })
 
 orderSchema.set('toJSON', {

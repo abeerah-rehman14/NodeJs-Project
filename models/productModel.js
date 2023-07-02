@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 
 const productSchema = mongoose.Schema({
@@ -28,10 +28,10 @@ const productSchema = mongoose.Schema({
         required: true,
 
     }
-});
+})
 
 productSchema.virtual('id').get(function() {
-    return this._id.toHexString();
+    return this._id.toHexString()
 })
 
 productSchema.set('toJSON', {

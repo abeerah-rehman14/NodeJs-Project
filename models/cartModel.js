@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 
 const cartSchema = mongoose.Schema({
@@ -14,10 +14,10 @@ const cartSchema = mongoose.Schema({
         type : Number,
         required: true,
     },
-});
+})
 
 cartSchema.virtual('id').get(function() {
-    return this._id.toHexString();
+    return this._id.toHexString()
 })
 
 cartSchema.set('toJSON', {
