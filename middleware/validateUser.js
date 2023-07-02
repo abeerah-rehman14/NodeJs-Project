@@ -20,6 +20,13 @@ const validateToken = asyncHandler(async (req, res, next) =>
             }
             
             req.user = decoded.user; // decode value embedded in token
+            if(req.method != "GET" && req.baseUrl.includes("/api/products")){
+                if(!req.user.isAdmin){
+                    res.status(403);
+                    throw new Error("Unauthorized access, Only admin can access");
+                }
+
+            }
             next();
         })
        

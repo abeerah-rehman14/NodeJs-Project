@@ -16,6 +16,8 @@ const errorHandler = (error, req, res, next) => {
         case constants.NOT_FOUND:
             res.status(404).json({status: 404, message: error.message})
             break 
+        case constants.INTERNAL_SERVER_ERROR:  
+            res.status(500).json({status: 500, message: error.message})  
             
         default:    
             break

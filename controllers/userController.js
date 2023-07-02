@@ -2,18 +2,16 @@ const asyncHandler = require('express-async-handler');
 const User = require("../models/userModel") 
 const mongoose = require('mongoose');
 
-//user controler
-//@ get api/users
-//access public
+//list all users
+// GET /api/users
 
 const getUsers = asyncHandler(async (req, res) =>{
-    const users = await User.find()
+    const users = await User.find().select('-password')
     res.status(200).json(users)
 })
 
-//create a new user
-//@ post api/users
-//access public
+//create  users
+// POST /api/users
 const createUser = asyncHandler(async (req, res) =>{
     const {name,email,password} = req.body;
     if(!name || !email || !password)
@@ -25,6 +23,9 @@ const createUser = asyncHandler(async (req, res) =>{
     res.status(201).json(newUser)
 });
 
+
+//list users by id
+// POST /api/users/id
 const getUser = asyncHandler( async (req, res) =>{
     const isValidObjectId = mongoose.Types.ObjectId.isValid(req.params.id);
     if (!isValidObjectId) {
@@ -42,7 +43,8 @@ const getUser = asyncHandler( async (req, res) =>{
     }
 });
 
-
+//update users by id
+// PUT /api/users/id
 const updateUser = asyncHandler( async (req, res) =>{
     const isValidObjectId = mongoose.Types.ObjectId.isValid(req.params.id);
     if (!isValidObjectId) {
@@ -65,6 +67,8 @@ const updateUser = asyncHandler( async (req, res) =>{
 
 })
 
+//delete users by id
+// DELETE /api/users/id
 const deleteUser = asyncHandler( async (req, res) =>{
     const isValidObjectId = mongoose.Types.ObjectId.isValid(req.params.id);
     if (!isValidObjectId) {

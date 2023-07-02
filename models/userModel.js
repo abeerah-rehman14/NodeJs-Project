@@ -13,11 +13,11 @@ const userSchema = mongoose.Schema({
         type : String,
         required : [true, "Please enter a password"]
     },
-    coinDetails : {
-        type : String,
-        required : [false]
-
-    }
+    isAdmin :{
+        type : Boolean,
+        default : false
+    },
+   
 },
     {
         timestamps : true
